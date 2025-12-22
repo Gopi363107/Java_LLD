@@ -1,0 +1,19 @@
+🧱 SOLID Principles (LLD Core)
+
+We’ll cover one principle at a time in this order:
+
+S – Single Responsibility Principle (SRP)
+O – Open/Closed Principle (OCP)
+L – Liskov Substitution Principle (LSP)
+I – Interface Segregation Principle (ISP)
+D – Dependency Inversion Principle (DIP)
+
+For each principle, I’ll explain:
+
+Simple definition (1–2 lines)
+
+Bad design ❌
+Improved design ✅
+Real-world analogy
+Interview tips
+
