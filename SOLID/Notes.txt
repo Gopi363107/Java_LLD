@@ -16,4 +16,206 @@ Bad design ❌
 Improved design ✅
 Real-world analogy
 Interview tips
+____________________________________________________________________________________________________________________
+1️⃣ Single Responsibility Principle (SRP)
+🔹 Definition
+
+A class should have only one reason to change.
+
+👉 In simple words:
+One class = One job
+
+❌ Bad Design (Violation of SRP)
+class Invoice {
+    void calculateTotal() {
+        // business logic
+    }
+
+    void printInvoice() {
+        // printing logic
+    }
+
+    void saveToDatabase() {
+        // DB logic
+    }
+}
+
+❌ Problems
+
+Business logic + printing + DB = multiple responsibilities
+
+Any change in printing or DB affects Invoice
+
+Hard to test & maintain
+
+✅ Good Design (Following SRP)
+class Invoice {
+    void calculateTotal() {
+        // business logic
+    }
+}
+
+class InvoicePrinter {
+    void print(Invoice invoice) {
+        // printing logic
+    }
+}
+
+class InvoiceRepository {
+    void save(Invoice invoice) {
+        // DB logic
+    }
+}
+
+✅ Benefits
+
+Each class has one responsibility
+
+Easy to modify, test, and extend
+
+Cleaner LLD design
+
+🌍 Real-World Analogy
+
+👨‍🍳 Chef cooks
+🧾 Accountant handles bills
+🖨️ Clerk prints receipts
+
+One person → one responsibility
+
+🎯 Interview One-Liner
+
+“SRP states that a class should have only one reason to change, 
+meaning it should handle only one responsibility.”
+
+🧠 Common Interview Trap
+
+❓ Is SRP about one method per class?
+❌ No
+✅ It’s about one responsibility, not one method
+
+✔️ SRP Summary
+
+Improves maintainability
+
+Reduces side effects
+
+Makes LLD clean and extensible
+____________________________________________________________________________________________________________________
+
+🧱 Open / Closed Principle (OCP)
+🔹 Definition
+
+Software entities (classes, modules, functions) should be
+OPEN for extension but CLOSED for modification
+
+📌 Meaning in simple words
+You should be able to add new behavior without changing existing code.
+
+❌ OCP Violation (Bad Design)
+🎯 Example: Discount System
+class DiscountCalculator {
+
+    double calculateDiscount(String customerType, double amount) {
+        if (customerType.equals("STUDENT")) {
+            return amount * 0.10;
+        } else if (customerType.equals("SENIOR")) {
+            return amount * 0.20;
+        } else if (customerType.equals("EMPLOYEE")) {
+            return amount * 0.30;
+        }
+        return 0;
+    }
+}
+
+❌ Problems
+
+Every new customer type → modify this class
+
+High risk of breaking existing logic
+
+Violates OCP
+
+✅ OCP Followed (Clean LLD Design)
+🔹 Step 1: Create an abstraction
+interface DiscountStrategy {
+    double applyDiscount(double amount);
+}
+
+🔹 Step 2: Extend behavior using new classes
+class StudentDiscount implements DiscountStrategy {
+    public double applyDiscount(double amount) {
+        return amount * 0.10;
+    }
+}
+
+class SeniorDiscount implements DiscountStrategy {
+    public double applyDiscount(double amount) {
+        return amount * 0.20;
+    }
+}
+
+class EmployeeDiscount implements DiscountStrategy {
+    public double applyDiscount(double amount) {
+        return amount * 0.30;
+    }
+}
+
+🔹 Step 3: Closed for modification
+class DiscountCalculator {
+    double calculate(DiscountStrategy strategy, double amount) {
+        return strategy.applyDiscount(amount);
+    }
+}
+
+
+👉 Now:
+
+Add NewDiscount → just create a new class
+
+❌ No modification in DiscountCalculator
+
+🧠 Real-World Analogy
+
+🔌 Plug socket
+You can plug new devices without changing the socket design.
+
+🎯 Interview One-Liner
+
+“OCP means we should extend system behavior using new classes instead of modifying existing, tested code.”
+
+⚠ Common Interview Trap
+
+❓ Is OCP achieved using inheritance only?
+❌ No
+✅ Interfaces + composition is preferred
+
+🧩 Your Turn (Practice Time)
+🟡 Medium-Level OCP Question (DO THIS)
+
+System: Notification System
+
+👉 Requirements:
+
+Send notification
+
+Types:
+
+Email
+SMS
+WhatsApp
+
+❓ Task:
+
+First think of OCP violation
+Then design system following OCP
+Use interface + implementation
+Write a Main class
+
+💡 Hint:
+
+Notification → abstraction
+Email / SMS / WhatsApp → extension
+
+____________________________________________________________________________________________________________________________
 
