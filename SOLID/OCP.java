@@ -1,5 +1,5 @@
 import java.util.*;
-
+// Open Close Principle
 public class OCP {
 
     public static void main(String[] args) {

@@ -1,3 +1,8 @@
+____________________________________________________________________________________________________________________
+use this line to delete all .class file : 
+
+Get-ChildItem -Path 'C:\Users\LENOVO\Desktop\Java_LLD\SOLID' -Filter *.class -Recurse |Remove-Item -Force
+____________________________________________________________________________________________________________________
 🧱 SOLID Principles (LLD Core)
 
 We’ll cover one principle at a time in this order:
@@ -218,4 +223,397 @@ Notification → abstraction
 Email / SMS / WhatsApp → extension
 
 ____________________________________________________________________________________________________________________________
+
+🧱 Liskov Substitution Principle (LSP)
+
+🔹 Official Definition
+Objects of a superclass should be replaceable with objects of its subclasses without breaking the program.
+📌 Sounds confusing? Let’s simplify 👇
+
+🧠 Simple Meaning (Very Important)
+
+If class B is a child of class A,
+then B should behave like A, not surprise the system.
+👉 Anywhere the parent is expected, the child should work correctly.
+
+❌ Classic Wrong Understanding
+
+LSP is NOT just about:
+Inheritance
+Method overriding compiling successfully
+
+❌ Code compiling ≠ LSP followed
+
+🚨 Most Common LSP Violation (Interview Favorite)
+❌ Bad Design Example: Bird
+class Bird {
+    void fly() {
+        System.out.println("Bird is flying");
+    }
+}
+
+class Ostrich extends Bird {
+    void fly() {
+        throw new UnsupportedOperationException("Ostrich can't fly");
+    }
+}
+
+❌ Why this violates LSP
+
+Ostrich IS-A Bird (by inheritance)
+But it cannot fly
+Any code expecting a Bird that flies will break
+
+👉 Substitution fails
+
+🧠 Key LSP Rule (MEMORIZE)
+A subclass should not weaken the behavior promised by the parent class.
+
+✅ Correct Design (LSP Followed)
+✔ Fix by separating behavior
+interface Flyable {
+    void fly();
+}
+
+class Sparrow implements Flyable {
+    public void fly() {
+        System.out.println("Sparrow flying");
+    }
+}
+
+class Ostrich {
+    // no fly method
+}
+
+👉 Now:
+
+Only birds that can fly implement Flyable
+No broken substitution
+
+🔁 LSP IN REAL SYSTEMS (INTERVIEW LEVEL)
+
+Now let’s apply LSP to something close to what you already know.
+
+🛒 Example: Payment System (LSP)
+❌ LSP Violation
+class Payment {
+    void pay(double amount) {
+        System.out.println("Payment processed: " + amount);
+    }
+}
+
+class CashPayment extends Payment {
+    void pay(double amount) {
+        System.out.println("Cash payment done");
+    }
+}
+
+class CreditCardPayment extends Payment {
+    void pay(double amount) {
+        if (amount > 50000) {
+            throw new RuntimeException("Limit exceeded");
+        }
+        System.out.println("Card payment done");
+    }
+}
+
+❌ Why this violates LSP
+
+Parent Payment promises: “I can pay any amount”
+Child CreditCardPayment adds restriction
+Substitution breaks for large amounts
+
+✅ LSP-CORRECT DESIGN
+✔ Define correct abstraction
+interface PaymentMethod {
+    void pay(double amount);
+}
+
+class CashPayment implements PaymentMethod {
+    public void pay(double amount) {
+        System.out.println("Cash payment: " + amount);
+    }
+}
+
+class CreditCardPayment implements PaymentMethod {
+    public void pay(double amount) {
+        System.out.println("Card payment: " + amount);
+    }
+}
+
+
+👉 Validation rules move outside or into a separate validator.
+
+🧠 LSP GOLDEN RULE (WRITE THIS)
+
+Subclasses must honor the contract of the parent class.
+Contract includes:
+Expected behavior
+Input assumptions
+Output guarantees
+
+Exceptions
+🎯 How Interviewers Test LSP
+
+They ask:
+
+“Is Square a Rectangle?”
+“Is every Bird able to fly?”
+“Can child throw new exceptions?”
+
+Correct mindset:
+
+Inheritance should represent behavioral compatibility, not just code reuse.
+
+🧩 Your Turn (Very Important)
+🟡 LSP PRACTICE QUESTION
+
+System: Notification System
+
+👉 You already built this.
+
+❓ Task:
+
+Create a base Notification abstraction
+
+Create:
+EmailNotification
+SMSNotification
+
+Ensure:
+
+Any notification can replace another
+No subclass breaks expected behavior
+
+💡 Hint:
+
+No method should suddenly:
+Throw unsupported exceptions
+Ignore required behavior
+OR (Alternative if you prefer)
+
+Say:
+
+“Explain LSP again using Order Processing System”
+I’ll re-explain using Order / Payment / Invoice, step-by-step.
+
+____________________________________________________________________________________________________________________
+
+🔹 Interface Segregation Principle (ISP)
+
+📌 Definition (Interview-Ready)
+
+No client should be forced to depend on methods it does not use.
+👉 Many small, specific interfaces are better than one large interface.
+
+1️⃣ Real-Life Intuition (Simple)
+
+Imagine a remote control:
+TV needs: powerOn(), changeChannel()
+AC needs: powerOn(), setTemperature()
+
+❌ Bad: One remote with all buttons for everyone
+✅ Good: Separate remotes for TV and AC
+
+That’s ISP.
+
+2️⃣ ISP Violation Example ❌ (Very Common in Interviews)
+❌ Fat Interface
+interface Worker {
+    void work();
+    void eat();
+}
+
+❌ Problematic Implementation
+class RobotWorker implements Worker {
+    public void work() {
+        System.out.println("Robot is working");
+    }
+
+    public void eat() {
+        // ❌ Robot does not eat
+    }
+}
+
+🚨 Why ISP is violated?
+
+Robot is forced to implement eat()
+Client depends on a method it doesn’t need
+Empty / dummy methods = design smell
+
+3️⃣ Correct ISP Design ✅
+✅ Segregated Interfaces
+interface Workable {
+    void work();
+}
+
+interface Eatable {
+    void eat();
+}
+
+✅ Implement Only What Is Needed
+class HumanWorker implements Workable, Eatable {
+    public void work() {
+        System.out.println("Human is working");
+    }
+
+    public void eat() {
+        System.out.println("Human is eating");
+    }
+}
+
+class RobotWorker implements Workable {
+    public void work() {
+        System.out.println("Robot is working");
+    }
+}
+
+
+🔥 Clean
+🔥 Flexible
+🔥 ISP satisfied
+
+4️⃣ Payment System – ISP Version (Connected to Your LSP)
+
+You already thought about this 👌
+
+✅ Interfaces
+interface Payment {
+    void processPayment();
+}
+
+interface Refundable {
+    void refund();
+}
+
+✅ Implementations
+class CreditCardPayment implements Payment, Refundable {
+    public void processPayment() {
+        System.out.println("Credit card payment processed");
+    }
+
+    public void refund() {
+        System.out.println("Credit card refund processed");
+    }
+}
+
+class CashPayment implements Payment {
+    public void processPayment() {
+        System.out.println("Cash payment processed");
+    }
+}
+
+💡 Why this is perfect?
+
+Cash is not forced to implement refund
+Interfaces are role-based
+ISP + LSP both satisfied
+
+5️⃣ Interview Pattern Recognition 🧠
+
+ISP problems usually involve:
+
+Printer / Scanner / Fax
+Payment / Refund
+User permissions
+Workers / Robots
+File readers (read / write)
+If you see:
+Empty methods
+
+throw UnsupportedOperationException
+👉 ISP is violated ❌
+
+6️⃣ One-Line Interview Answer (Must Remember)
+
+“ISP ensures that a class only implements interfaces relevant to its behavior, 
+avoiding fat interfaces and unused methods.”
+
+7️⃣ Your Turn 🎯 (Practice Question)
+
+🟡 Medium-Level ISP Question
+
+System: Printer System
+
+Operations:
+
+print()
+scan()
+fax()
+
+Devices:
+
+BasicPrinter (only print)
+OfficePrinter (print, scan, fax)
+
+👉 Task:
+
+Identify ISP violation
+Design correct interfaces
+Write clean Java code
+
+____________________________________________________________________________________________________________________
+
+🧠 Dependency Inversion Principle (DIP)
+🔑 Definition (Simple)
+
+High-level modules should not depend on low-level modules.
+Both should depend on abstractions.
+
+🔍 Apply it to your Printer System
+❌ Wrong (Violates DIP)
+OfficePrinter printer = new OfficePrinter();
+printer.print();
+
+
+Why wrong?
+
+PrinterSystem is tightly coupled to OfficePrinter
+If tomorrow we add SmartPrinter, you must modify code ❌
+
+✅ Correct (Follows DIP)
+Printable printer = new OfficePrinter();
+printer.print();
+
+
+Why correct?
+
+PrinterSystem depends on abstractions
+OfficePrinter, BasicPrinter, SmartPrinter can change freely
+System is flexible, extensible, testable
+
+🔥 This is true DIP
+
+🧱 Role of Each Layer (Interview Gold)
+High-Level Module
+PrinterSystem (main logic)
+
+Abstractions
+Printable
+Scannable
+Faxable
+
+Low-Level Modules
+BasicPrinter
+OfficePrinter
+
+
+👉 Both depend on interfaces
+👉 No direct dependency on concrete classes
+
+🗣️ Interview-Ready Explanation (Say This)
+
+“I applied Dependency Inversion Principle by making the system depend on printer capability interfaces like Printable, Scannable, and Faxable instead of concrete printer classes. This decouples high-level logic from low-level implementations.”
+
+💯 This answer alone can clear an LLD round.
+
+🏁 SOLID — COMPLETED 🎉
+Principle	Status
+SRP	✅
+OCP	✅
+LSP	✅
+ISP	✅
+DIP	✅
+
+You’ve officially completed SOLID with real code, not theory.
 
