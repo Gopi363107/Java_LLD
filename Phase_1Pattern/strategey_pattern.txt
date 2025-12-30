@@ -1,0 +1,148 @@
+🔰 PHASE 1 — PATTERN 1: STRATEGY PATTERN
+
+This is the MOST IMPORTANT pattern in LLD.
+If you master Strategy, 50% of LLD becomes easy.
+
+1️⃣ What PROBLEM does Strategy solve? (No code yet)
+Imagine this situation:
+
+You have a system that:
+
+Does one thing
+
+But that thing can be done in multiple ways
+
+And new ways will be added in the future
+
+Example ideas:
+
+Payment → Card / UPI / Cash
+
+Notification → Email / SMS / WhatsApp
+
+Discount → Flat / Percentage / Festival
+
+Sorting → Asc / Desc / Custom
+
+❌ Bad Design (Without Strategy)
+
+You usually see:
+
+Big if-else
+
+Or switch
+
+Or logic scattered everywhere
+
+Problems:
+
+Hard to add new option
+
+Violates OCP
+
+Risk of breaking existing code
+
+✅ Strategy Pattern Idea (In ONE line)
+
+Encapsulate interchangeable behaviors and select them at runtime
+
+Meaning:
+
+Each “way” is separate
+
+Core system doesn’t change
+
+New behavior = new class
+
+2️⃣ Real-World Analogy (VERY SIMPLE)
+Travel Example 🚗🚆✈️
+
+Goal: Go from A to B
+
+Ways:
+
+Car
+
+Train
+
+Flight
+
+You don’t change your destination logic
+You just change the strategy
+
+3️⃣ When SHOULD you think “Strategy”?
+
+If you see:
+
+Many if-else
+
+Same action, different logic
+
+Runtime choice
+
+Frequent changes
+
+👉 Strategy is screaming here.
+
+4️⃣ Strategy Pattern Structure (Mental Model)
+
+There are 3 roles only:
+
+1️⃣ Strategy (Interface)
+
+Defines what to do
+
+Not how
+
+2️⃣ Concrete Strategies
+
+Actual implementations
+
+One responsibility each
+
+3️⃣ Context
+
+Uses the strategy
+
+Doesn’t care which one
+
+5️⃣ VERY IMPORTANT Interview Line (Memorize)
+
+“I used Strategy Pattern to eliminate conditional logic and allow easy extension without modifying existing code.”
+
+Say this → interviewer nods ✅
+
+6️⃣ Common Beginner Mistake ❌
+
+Mistake:
+
+Creating strategy but still using if-else in main logic
+
+Correct:
+
+Choose strategy once
+
+Use polymorphism
+
+7️⃣ Where Strategy Appears (Everywhere)
+
+You already used it (without knowing):
+
+Notification system
+
+Payment system
+
+Discount calculator
+
+👉 Strategy is not advanced
+It’s fundamental
+
+8️⃣ What We’ll Do Next (IMPORTANT)
+
+We will follow this exact flow:
+
+Step 1️⃣ Write BAD design (with if-else)
+Step 2️⃣ Feel the pain
+Step 3️⃣ Refactor to Strategy
+Step 4️⃣ Apply to BookMyShow
+Step 5️⃣ Interview explanation

@@ -1,0 +1,135 @@
+🏭 Factory Design Pattern (Phase 1 – MUST)
+1️⃣ What problem does Factory solve?
+
+Problem:
+When object creation logic is spread everywhere using new, your code becomes:
+
+Tightly coupled
+Hard to modify
+Hard to extend (violates OCP)
+
+❌ Bad Design
+Car car;
+if(type.equals("SUV")) {
+    car = new SUV();
+} else if(type.equals("SEDAN")) {
+    car = new Sedan();
+}
+
+👉 Every time a new car type comes, you modify this code.
+
+2️⃣ Factory Pattern – Definition (Interview-ready)
+
+Factory Pattern provides an interface for creating objects, but lets subclasses or a 
+factory class decide which object to instantiate.
+
+Simply:
+👉 Object creation is delegated to a factory class
+
+3️⃣ When to use Factory Pattern?
+
+Use Factory when:
+
+You don’t want client code to use new
+Object creation logic is complex
+Multiple implementations of same interface
+You want loose coupling
+
+📌 Very common in interviews
+
+4️⃣ Structure of Factory Pattern
+        Product (Interface)
+             ↑
+     -----------------
+     |               |
+ ConcreteProduct1  ConcreteProduct2
+
+         Factory
+        (creates objects)
+
+5️⃣ Simple Java Example (LLD Friendly)
+Step 1: Product Interface
+interface Notification {
+    void notifyUser();
+}
+
+Step 2: Concrete Implementations
+class EmailNotification implements Notification {
+    public void notifyUser() {
+        System.out.println("Sending Email Notification");
+    }
+}
+
+class SMSNotification implements Notification {
+    public void notifyUser() {
+        System.out.println("Sending SMS Notification");
+    }
+}
+
+Step 3: Factory Class
+class NotificationFactory {
+
+    public static Notification createNotification(String type) {
+
+        if(type.equalsIgnoreCase("EMAIL")) {
+            return new EmailNotification();
+        } 
+        else if(type.equalsIgnoreCase("SMS")) {
+            return new SMSNotification();
+        }
+
+        throw new IllegalArgumentException("Invalid Notification Type");
+    }
+}
+
+Step 4: Client Code
+public class Main {
+    public static void main(String[] args) {
+
+        Notification notification =
+                NotificationFactory.createNotification("EMAIL");
+
+        notification.notifyUser();
+    }
+}
+
+6️⃣ Key Benefits
+
+✅ Loose Coupling
+✅ Single Responsibility
+✅ Centralized Object Creation
+✅ Easy to add new types
+
+7️⃣ Factory vs Strategy (Important Confusion)
+Factory	Strategy
+Creates objects	Changes behavior
+Decides which object	Decides how to act
+Used at creation time	Used at runtime
+
+📌 Factory = Object creation
+📌 Strategy = Behavior selection
+
+8️⃣ SOLID Connection (VERY IMPORTANT)
+✔️ Open/Closed Principle (OCP)
+
+New notification type → add new class
+Minimal changes to existing code
+
+✔️ Dependency Inversion (DIP)
+
+Client depends on Notification interface
+Not concrete classes
+
+👉 This is why Factory is loved in interviews
+
+9️⃣ Real-World Examples
+
+Payment Gateway Factory (UPI, CARD, NETBANKING)
+Logger Factory (FileLogger, DBLogger)
+Database Connection Factory
+
+UI Component Factory (Button, Checkbox)
+
+🔥 Interview One-Liner (MEMORIZE)
+
+Factory Pattern hides object creation logic and returns objects based on input, promoting loose coupling and OCP.

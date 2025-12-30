@@ -1,0 +1,81 @@
+🎬 BookMyShow — BASIC LLD QUESTION (Beginner → Medium)
+🟢 Level: Beginner–Medium
+🎯 Goal: Learn LLD thinking, not completeness
+📘 PROBLEM STATEMENT
+System: BookMyShow (Very Basic Version)
+✅ Functional Requirements (KEEP IT SIMPLE STUPID)
+1️⃣ Movie
+
+Movie name
+
+2️⃣ Theater
+
+Theater name
+
+3️⃣ Show
+
+Movie
+Theater
+Time
+Available seats
+
+4️⃣ Booking
+
+User selects a show
+User books N seats
+Seats reduce after booking
+Print booking confirmation
+
+🧱 Design Rules (IMPORTANT)
+
+✔ Follow SRP mainly
+✔ Use interfaces only if needed
+✔ Keep classes small & clear
+✔ No advanced patterns
+✔ No inheritance chains
+
+❌ No payment gateway
+❌ No seat numbers
+❌ No cancellation
+❌ No user login
+❌ No database (just print statements)
+
+🧩 Responsibilities to Think About
+
+(Do NOT overthink — this is guidance, not mandatory)
+
+Movie → data only
+Theater → data only
+Show → data + seat count
+BookingService → booking logic
+NotificationService → print confirmation
+📝 What You Need to Submit
+
+1️⃣ Java classes
+2️⃣ Main class that:
+
+Creates 1 movie
+Creates 1 theater
+Creates 1 show (with seats)
+Books seats
+Prints confirmation
+
+3️⃣ Short explanation:
+
+How you applied SRP
+🚦 Constraints (VERY IMPORTANT)
+
+Max 6–7 classes
+Each class should have one responsibility
+Keep method names simple
+Keep code readable
+
+🧠 Evaluation Criteria (How I’ll Review)
+
+✔ Correct responsibilities
+✔ Simple logic
+✔ Clean separation
+✔ Beginner-friendly design
+
+❌ No over-engineering
+❌ No unnecessary features (YAGNI)

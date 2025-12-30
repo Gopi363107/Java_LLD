@@ -1,0 +1,26 @@
+1️⃣ What PROBLEM does Strategy solve? (No code yet)
+Imagine this situation:
+
+You have a system that:
+Does one thing
+But that thing can be done in multiple ways
+And new ways will be added in the future
+
+Example ideas:
+
+Payment → Card / UPI / Cash
+Notification → Email / SMS / WhatsApp
+Discount → Flat / Percentage / Festival
+Sorting → Asc / Desc / Custom
+____________________________________________________________________________________________________________________
+
+1️⃣ What problem does Factory solve?
+
+Problem:
+When object creation logic is spread everywhere using new, your code becomes:
+
+Tightly coupled
+Hard to modify
+Hard to extend (violates OCP)
+
+____________________________________________________________________________________________________________________________

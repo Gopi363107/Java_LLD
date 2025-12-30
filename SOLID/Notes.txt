@@ -1,7 +1,7 @@
 ____________________________________________________________________________________________________________________
 use this line to delete all .class file : 
 
-Get-ChildItem -Path 'C:\Users\LENOVO\Desktop\Java_LLD\SOLID' -Filter *.class -Recurse |Remove-Item -Force
+Get-ChildItem -Path 'C:\Users\LENOVO\Desktop\Java_LLD\Practices_LLD' -Filter *.class -Recurse |Remove-Item -Force
 ____________________________________________________________________________________________________________________
 🧱 SOLID Principles (LLD Core)
 

@@ -1,0 +1,155 @@
+🧠 The 3 Golden Design Principles (Before SOLID)
+
+Think of these as daily-life thinking rules for good code.
+
+1️⃣ DRY — Don’t Repeat Yourself
+🔑 Meaning (Simple)
+
+Don’t write the same logic again and again.
+
+If something is repeated → extract it.
+
+🚗 Real-World Example
+
+You are filling a college form.
+
+❌ Bad:
+
+You write your name & phone number on 10 pages manually.
+
+✅ Good:
+
+You fill it once, and the system copies it everywhere.
+
+💻 Code Example
+
+❌ Bad (Repeated logic):
+
+double total1 = price + price * 0.18;
+double total2 = amount + amount * 0.18;
+
+
+✅ Good (DRY):
+
+double calculateTax(double amount) {
+    return amount + amount * 0.18;
+}
+
+🎯 Why DRY?
+
+Easy to change
+
+Less bugs
+
+Cleaner code
+
+2️⃣ KISS — Keep It Simple, Stupid
+🔑 Meaning (Simple)
+
+Don’t make things complicated if simple works.
+
+🏠 Real-World Example
+
+To switch ON a fan:
+
+❌ Bad:
+
+Mobile app
+WiFi
+Login
+OTP
+Cloud server
+
+✅ Good:
+
+Just press the switch
+
+💻 Code Example
+
+❌ Over-engineering:
+
+if (isUserValid == true && isPaymentDone == true && isTimeValid == true) {
+    return true;
+}
+
+
+✅ Simple (KISS):
+
+return isUserValid && isPaymentDone && isTimeValid;
+
+🎯 Why KISS?
+
+Easy to read
+Easy to debug
+Interviewers LOVE simple solutions
+
+3️⃣ YAGNI — You Aren’t Gonna Need It
+🔑 Meaning (Simple)
+
+Don’t build features you don’t need now.
+
+🍔 Real-World Example
+
+You open a tea shop.
+
+❌ Bad:
+
+Ice cream machine
+Pizza oven
+Coffee machine
+Bakery setup
+(But customers only want tea ☕)
+
+✅ Good:
+
+Just make tea first
+Add extras later if needed
+
+💻 Code Example
+
+❌ Bad:
+
+class Booking {
+    void book();
+    void cancel();
+    void reschedule();
+    void refund();
+    void loyaltyPoints();
+    void internationalSupport();
+}
+
+
+(You only need booking now)
+
+✅ Good (YAGNI):
+
+class Booking {
+    void book();
+}
+
+🎯 Why YAGNI?
+
+Faster development
+Less bugs
+Less maintenance
+
+🧩 How These 3 Work Together
+Principle	Focus
+DRY	No duplication
+KISS	No complexity
+YAGNI	No unnecessary features
+
+👉 First apply DRY, KISS, YAGNI
+👉 Then apply SOLID
+
+🧠 Interview Tip (Very Important)
+
+If interviewer asks:
+
+“How do you design clean systems?”
+
+Say:
+
+“I follow DRY, KISS, YAGNI first, then apply SOLID principles.”
+
+🔥 That sounds senior-level.
