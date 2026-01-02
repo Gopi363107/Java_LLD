@@ -1,4 +1,4 @@
-public class NotificationApp {
+public class factory_pattern {
     public static void main(String[] args) {
         Notification notify =  NotificationFactory.createNotification(NotificationType.WHATSAPP);
         notify.notifyUser();
