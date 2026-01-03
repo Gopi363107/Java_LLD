@@ -1,0 +1,103 @@
+✅ Real-World System: Online Exam Registration System (UPSC / University Level)
+📌 Real scenario
+
+Every year, lakhs of candidates apply for an exam.
+
+Most candidate details are same
+
+Only a few fields change (year, roll number, center)
+
+👉 Creating objects from scratch is costly
+👉 Prototype Pattern fits perfectly
+
+🧠 How Prototype Pattern applies
+
+Create a base candidate template
+
+Clone it for each new candidate
+
+Modify only required fields
+
+🏗 System Design (Simple)
+Entities
+
+ExamApplication → Prototype
+
+UPSCApplication → Concrete Prototype
+
+ApplicationSystem → Client
+
+✅ FULL REAL-WORLD CODE (Write this)
+public class ExamSystem {
+    public static void main(String[] args) {
+
+        // Base prototype
+        UPSCApplication baseForm =
+            new UPSCApplication("India", "General Studies", "Offline", 2024);
+
+        // Clone for Candidate 1
+        UPSCApplication c1 = (UPSCApplication) baseForm.clone();
+        c1.candidateName = "Gopi";
+        c1.rollNumber = "UPSC001";
+
+        // Clone for Candidate 2
+        UPSCApplication c2 = (UPSCApplication) baseForm.clone();
+        c2.candidateName = "Adithya";
+        c2.rollNumber = "UPSC002";
+
+        c1.print();
+        c2.print();
+    }
+}
+
+// Prototype interface
+interface ExamApplication {
+    ExamApplication clone();
+}
+
+// Concrete Prototype
+class UPSCApplication implements ExamApplication {
+
+    String country;
+    String examType;
+    String mode;
+    int year;
+
+    String candidateName;
+    String rollNumber;
+
+    UPSCApplication(String country, String examType, String mode, int year) {
+        this.country = country;
+        this.examType = examType;
+        this.mode = mode;
+        this.year = year;
+    }
+
+    @Override
+    public ExamApplication clone() {
+        return new UPSCApplication(this.country, this.examType, this.mode, this.year);
+    }
+
+    void print() {
+        System.out.println(
+            candidateName + " | " + rollNumber + " | " +
+            examType + " | " + year + " | " + mode
+        );
+    }
+}
+
+🧪 Sample Output
+Gopi | UPSC001 | General Studies | 2024 | Offline
+Adithya | UPSC002 | General Studies | 2024 | Offline
+
+⭐ How to explain in interview (2 lines)
+
+In an online exam system, most application data remains the same for all candidates. Using the Prototype Pattern, we clone a base application object and customize only candidate-specific fields, improving performance and reducing object creation complexity.
+
+🎯 Why this example is PERFECT for you
+
+✔ Matches your UPSC examples
+✔ Simple yet realistic
+✔ Easy to explain
+✔ LLD + Design Pattern ready
+✔ You can write directly in exam
