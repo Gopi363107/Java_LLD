@@ -2,9 +2,7 @@
 📌 Real scenario
 
 Every year, lakhs of candidates apply for an exam.
-
 Most candidate details are same
-
 Only a few fields change (year, roll number, center)
 
 👉 Creating objects from scratch is costly
@@ -13,18 +11,14 @@ Only a few fields change (year, roll number, center)
 🧠 How Prototype Pattern applies
 
 Create a base candidate template
-
 Clone it for each new candidate
-
 Modify only required fields
 
 🏗 System Design (Simple)
 Entities
 
 ExamApplication → Prototype
-
 UPSCApplication → Concrete Prototype
-
 ApplicationSystem → Client
 
 ✅ FULL REAL-WORLD CODE (Write this)

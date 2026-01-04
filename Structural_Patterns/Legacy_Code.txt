@@ -1,0 +1,153 @@
+🔹 What is Legacy Code? (Simple Definition)
+
+Legacy code is existing code that is already in production, works, but is hard to understand, modify, or extend.
+
+Key point:
+
+It works
+
+But it is not easy to change
+
+🧠 Simple Example
+
+Imagine this code:
+
+public class Payment {
+    public void pay(int type) {
+        if (type == 1) {
+            // UPI payment
+        } else if (type == 2) {
+            // Credit Card payment
+        } else if (type == 3) {
+            // Net Banking
+        }
+    }
+}
+
+
+This code:
+
+Is already deployed
+
+Users are paying successfully
+
+But…
+
+❌ Adding a new payment method means modifying this class
+❌ Violates Open–Closed Principle
+
+👉 This is legacy code
+
+🔍 Why Is It Called “Legacy”?
+
+Because:
+
+Written long ago
+
+By someone else
+
+Business depends on it
+
+Changing it is risky
+
+🚩 Characteristics of Legacy Code (Interview Gold)
+
+Legacy code usually has:
+
+❌ No proper documentation
+
+❌ No unit tests
+
+❌ Tight coupling
+
+❌ Large classes (God classes)
+
+❌ Hard-coded values
+
+❌ Poor naming
+
+❌ Difficult to refactor safely
+
+🧠 Legacy Code in LLD Context
+
+In LLD interviews, legacy code means:
+
+“You are given an existing system. You must add features without breaking existing behavior.”
+
+They test:
+
+Design principles
+
+Refactoring skills
+
+Backward compatibility
+
+Risk handling
+
+🛠 How Do We Handle Legacy Code? (VERY IMPORTANT)
+1️⃣ Don’t Rewrite Everything ❌
+
+Too risky
+
+May break production
+
+2️⃣ Add Tests First ✅
+
+“Tests are a safety net”
+
+Write unit tests around current behavior
+
+Even if code is ugly
+
+3️⃣ Refactor Incrementally
+
+Small changes
+
+One method at a time
+
+4️⃣ Use Design Patterns to Isolate It
+
+Common patterns used:
+
+Adapter → Wrap legacy code
+
+Facade → Simplify interface
+
+Strategy → Replace if-else
+
+Decorator → Add behavior without modification
+
+🧩 Legacy Code → Clean Design (Example)
+Legacy
+if (type == 1) { ... }
+
+Improved (Strategy Pattern)
+PaymentStrategy strategy = factory.get(type);
+strategy.pay();
+
+
+Legacy code stays, new code wraps it.
+
+🎯 Interview One-Liner Answer
+
+Legacy code is existing production code that works but is difficult to understand, maintain, or extend safely.
+
+🧠 Real-World Example (Relatable)
+
+Banking systems (10–20 years old)
+
+Telecom billing systems
+
+Government software
+
+Old monolithic enterprise apps
+
+⚠️ Important Interview Tip
+
+Never say:
+
+“I will rewrite the whole code”
+
+Instead say:
+
+“I will refactor incrementally with tests and patterns”

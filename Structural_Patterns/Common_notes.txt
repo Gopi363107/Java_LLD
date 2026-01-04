@@ -1,0 +1,165 @@
+1️⃣ What are Structural Design Patterns?
+🔹 Definition
+
+Structural Design Patterns deal with how classes and objects are composed to form larger,
+ flexible, and maintainable structures.
+
+👉 They focus on structure, not creation or behavior.
+
+2️⃣ Why Structural Patterns are Needed? (Problem)
+Without structural patterns:
+Tight coupling between classes
+Difficult to change or extend systems
+Code duplication
+Poor scalability
+Structural patterns help to:
+
+✔ Combine objects flexibly
+✔ Decouple components
+✔ Reuse existing code
+✔ Adapt incompatible interfaces
+
+3️⃣ Where Structural Patterns Sit in LLD
+Category	Focus
+Creational	How objects are created
+Structural	How objects are connected
+Behavioral	How objects communicate
+
+👉 Structural = Glue between objects
+
+4️⃣ Types of Structural Design Patterns (GOF – VERY IMPORTANT)
+
+There are 7 Structural Patterns:
+
+Pattern	                                Purpose
+Adapter	                Makes incompatible interfaces work together
+Bridge	                Separates abstraction from implementation
+Composite	            Tree structure for part–whole hierarchy
+Decorator	            Adds behavior dynamically
+Facade	                Simplified interface to complex system
+Flyweight	            Reduces memory by sharing objects
+Proxy	                Controls access to an object
+
+5️⃣ Explanation of Each Pattern (Clear + Short)
+1️⃣ Adapter Pattern
+Purpose:
+Convert one interface into another expected by client.
+
+Analogy:
+🔌 Mobile charger adapter
+
+Used When:
+Integrating legacy code
+Third-party libraries
+
+Example:
+USB → Type-C
+Old API → New system
+
+2️⃣ Bridge Pattern
+Purpose:
+Separate abstraction from implementation so both can vary independently.
+
+Analogy:
+🖊 Pen (abstraction) + Refill (implementation)
+
+Used When:
+Multiple dimensions of change
+Avoid class explosion
+
+3️⃣ Composite Pattern
+Purpose:
+Treat individual objects and groups of objects uniformly.
+
+Analogy:
+📁 File & Folder
+
+Used When:
+Tree structures
+Hierarchical data
+
+4️⃣ Decorator Pattern
+Purpose:
+Add new behavior to an object at runtime without modifying its class.
+
+Analogy:
+☕ Coffee + Milk + Sugar
+
+Used When:
+Feature extension
+Avoid subclass explosion
+
+5️⃣ Facade Pattern
+Purpose:
+Provide a simple interface to a complex subsystem.
+
+Analogy:
+🎮 TV Remote
+
+Used When:
+Complex APIs
+Improve usability
+
+6️⃣ Flyweight Pattern
+Purpose:
+Reduce memory usage by sharing common objects.
+
+Analogy:
+🅰 Characters in text editor
+
+Used When:
+Large number of similar objects
+Memory optimization
+
+7️⃣ Proxy Pattern
+Purpose:
+Provide a placeholder to control access to an object.
+Analogy:
+
+🛂 Security guard
+
+Used When:
+Lazy loading
+Access control
+Logging, caching
+
+6️⃣ Why Structural Patterns are IMPORTANT? (Interview Answer)
+
+Structural patterns are important because they:
+Improve flexibility
+Reduce tight coupling
+Promote code reuse
+Help scale large systems
+Make systems easier to modify
+
+👉 They are heavily used in real-world systems
+
+7️⃣ Where Structural Patterns are Used? (Real Systems)
+✔ Software Engineering
+
+UI frameworks (Swing, JavaFX)
+Spring Framework (Proxy, Facade)
+Hibernate (Proxy, Flyweight)
+
+✔ System Design
+
+Payment gateways
+Microservices
+Middleware layers
+
+✔ Everyday Examples
+
+API gateways → Facade
+ORM → Proxy
+UI components → Composite
+
+8️⃣ Structural Patterns in LLD Interviews
+Common Questions:
+
+Difference between Decorator vs Adapter
+When to use Facade vs Proxy
+Explain Composite with real example
+
+9️⃣ One-Line Summary (MEMORIZE)
+
+Structural Design Patterns focus on how classes and objects are composed to form flexible and reusable structures.

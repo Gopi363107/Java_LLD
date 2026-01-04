@@ -1,0 +1,160 @@
+1️⃣ What is Adapter Pattern? (Basic)
+🔹 Definition
+
+Adapter Pattern converts the interface of a class into another interface that the client expects.
+
+👉 It allows incompatible interfaces to work together.
+
+2️⃣ Why Adapter Pattern? (Problem)
+Scenario
+
+You have existing code:
+client → Target Interface
+
+But a new/old class has a different interface:
+client ❌ incompatible class
+
+
+You cannot modify the existing class.
+
+Solution
+Introduce an Adapter in between.
+client → adapter → incompatible class
+
+3️⃣ Real-Life Analogy 🌍
+
+🔌 Mobile Charger Adapter
+
+Phone expects Type-C
+Charger gives USB-A
+Adapter converts USB-A → Type-C
+
+4️⃣ Structure of Adapter Pattern
+Participants:
+
+Target – Interface client expects
+Adaptee – Existing / incompatible class
+Adapter – Converts interface
+Client – Uses Target interface
+
+5️⃣ UML-Level View (Interview)
+Client → Target
+             ↑
+          Adapter
+             ↓
+          Adaptee
+
+6️⃣ Simple Java Example (Basic)
+Scenario:
+
+Client expects PaymentProcessor
+Existing class is PaytmGateway
+
+Step 1: Target Interface
+interface PaymentProcessor {
+    void pay(int amount);
+}
+
+Step 2: Adaptee (Incompatible)
+class PaytmGateway {
+    void makePayment(double money) {
+        System.out.println("Paid via Paytm: " + money);
+    }
+}
+
+Step 3: Adapter
+class PaytmAdapter implements PaymentProcessor {
+
+    private PaytmGateway paytm;
+
+    PaytmAdapter(PaytmGateway paytm) {
+        this.paytm = paytm;
+    }
+
+    public void pay(int amount) {
+        paytm.makePayment(amount);
+    }
+}
+
+Step 4: Client
+public class Main {
+    public static void main(String[] args) {
+        PaymentProcessor processor =
+            new PaytmAdapter(new PaytmGateway());
+
+        processor.pay(500);
+    }
+}
+
+
+✔ Client is happy
+✔ Paytm is reused
+✔ No code modification
+
+7️⃣ Types of Adapter Pattern
+1️⃣ Object Adapter (MOST USED ✅)
+
+Uses composition
+Adapter has an instance of Adaptee
+
+✔ Flexible
+✔ Preferred in Java
+
+2️⃣ Class Adapter (Rare)
+
+Uses inheritance
+Adapter extends Adaptee
+
+❌ Java doesn’t support multiple inheritance
+❌ Less flexible
+
+8️⃣ Object Adapter vs Class Adapter
+Object Adapter	Class Adapter
+Uses composition	Uses inheritance
+More flexible	Less flexible
+Preferred in Java	Rare in Java
+9️⃣ When to Use Adapter Pattern?
+
+Use Adapter when:
+
+Integrating legacy code
+Using third-party libraries
+Interfaces are incompatible
+You cannot change existing code
+
+🔟 Adapter vs Decorator vs Facade (INTERVIEW CONFUSION)
+Pattern	Purpose
+Adapter	Makes interfaces compatible
+Decorator	Adds behavior
+Facade	Simplifies interface
+
+👉 Adapter = conversion
+👉 Decorator = enhancement
+👉 Facade = simplification
+
+1️⃣1️⃣ Real-World Uses
+
+✔ Payment gateways
+✔ Logging frameworks
+✔ Spring MVC controllers
+✔ Database drivers
+
+Example:
+
+InputStreamReader (Java) → Adapter
+
+1️⃣2️⃣ Advantages
+
+✔ Reuse existing code
+✔ Open–Closed Principle
+✔ Clean separation
+
+1️⃣3️⃣ Disadvantages
+
+✖ Extra layer
+✖ Too many adapters can complicate system
+
+1️⃣4️⃣ Interview One-Liner (MEMORIZE)
+
+Adapter Pattern allows incompatible interfaces to work together by 
+converting one interface into another expected by the client.
