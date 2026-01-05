@@ -15,6 +15,7 @@ interface  coffee{
     String description();
 }
 
+//old class
 class SimpleCoffee implements coffee{
 
     @Override

@@ -1,0 +1,127 @@
+🎬 Real-World Example: Video Streaming Platform (Netflix / YouTube)
+👉 Decorator Pattern in Video Quality & Features
+🧠 Scenario (Real System Thinking)
+
+You have a basic video stream.
+Users can add features dynamically:
+
+HD Quality
+
+Subtitles
+
+Download option
+
+⚠️ Important:
+
+You should not modify existing video code
+
+Features should be added at runtime
+
+➡️ Perfect use case for Decorator Pattern
+
+1️⃣ OLD CODE (Existing System)
+🎥 Video Interface (OLD)
+interface Video {
+    String play();
+    int cost();
+}
+
+🎥 BasicVideo (OLD)
+class BasicVideo implements Video {
+
+    public String play() {
+        return "Playing video";
+    }
+
+    public int cost() {
+        return 0;
+    }
+}
+
+
+✔ This code already exists
+✔ Working fine
+✔ Cannot modify it
+
+2️⃣ NEW CODE (Decorator Added)
+🎯 Abstract Decorator (NEW)
+abstract class VideoDecorator implements Video {
+    protected Video video;
+
+    VideoDecorator(Video video) {
+        this.video = video;
+    }
+}
+
+
+➡️ Connects old video to new features
+
+📺 HD Feature (NEW)
+class HDVideo extends VideoDecorator {
+
+    HDVideo(Video video) {
+        super(video);
+    }
+
+    public String play() {
+        return video.play() + " in HD";
+    }
+
+    public int cost() {
+        return video.cost() + 50;
+    }
+}
+
+📝 Subtitles Feature (NEW)
+class Subtitles extends VideoDecorator {
+
+    Subtitles(Video video) {
+        super(video);
+    }
+
+    public String play() {
+        return video.play() + " with Subtitles";
+    }
+
+    public int cost() {
+        return video.cost() + 20;
+    }
+}
+
+3️⃣ MAIN METHOD (How real system works)
+public class DecoratorPatternDemo {
+
+    public static void main(String[] args) {
+
+        Video video = new BasicVideo();       // OLD
+        video = new HDVideo(video);           // NEW Feature
+        video = new Subtitles(video);         // NEW Feature
+
+        System.out.println(video.play());
+        System.out.println("Extra cost: " + video.cost());
+    }
+}
+
+4️⃣ OUTPUT (User Experience)
+Playing video in HD with Subtitles
+Extra cost: 70
+
+5️⃣ Mapping to REAL LIFE
+Real World	Code
+Free video	BasicVideo
+HD plan	HDVideo
+Subtitles	Subtitles
+User selects features	Decorators
+6️⃣ WHY THIS IS REALISTIC?
+
+✔ Netflix / YouTube add features dynamically
+✔ No need to create separate classes for each combo
+✔ Features can be stacked in any order
+
+Example:
+
+video = new Subtitles(new HDVideo(new BasicVideo()));
+
+🔑 One-Line Memory Trick
+
+Decorator Pattern = Feature add-ons without touching core system
