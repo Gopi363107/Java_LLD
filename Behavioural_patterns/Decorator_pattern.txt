@@ -1,0 +1,198 @@
+1️⃣ What is Decorator Pattern? (Basic)
+🔹 Definition
+
+Decorator Pattern allows you to add new behavior to an object dynamically without modifying its class.
+
+👉 Add features at runtime instead of creating subclasses.
+
+2️⃣ Why Decorator Pattern? (Problem)
+Without Decorator
+
+You create subclasses for every feature combination.
+
+❌ Class explosion problem
+❌ Hard to maintain
+❌ Violates Open–Closed Principle
+
+Example without Decorator
+Coffee
+ ├── CoffeeWithMilk
+ ├── CoffeeWithSugar
+ ├── CoffeeWithMilkAndSugar
+ ├── CoffeeWithCreamAndSugar
+
+
+🚨 Too many classes!
+
+3️⃣ Real-Life Analogy 🌍
+
+☕ Coffee Shop
+
+Base coffee
+
+Add milk
+
+Add sugar
+
+Add cream
+
+👉 Features are added dynamically
+
+4️⃣ Key Idea of Decorator Pattern
+
+Wrap an object inside another object
+
+Decorator has same interface
+
+Client doesn’t know if object is decorated or not
+
+5️⃣ Structure of Decorator Pattern
+Participants:
+
+Component – common interface
+
+Concrete Component – base object
+
+Decorator – abstract wrapper
+
+Concrete Decorators – add behavior
+
+6️⃣ UML-Level View (Interview)
+Client → Component
+             ↑
+        Decorator
+             ↑
+     ConcreteDecorator
+
+7️⃣ Simple Java Example (Basic)
+Step 1: Component
+interface Coffee {
+    int cost();
+    String description();
+}
+
+Step 2: Concrete Component
+class SimpleCoffee implements Coffee {
+    public int cost() {
+        return 50;
+    }
+
+    public String description() {
+        return "Simple Coffee";
+    }
+}
+
+Step 3: Decorator (Abstract)
+abstract class CoffeeDecorator implements Coffee {
+    protected Coffee coffee;
+
+    CoffeeDecorator(Coffee coffee) {
+        this.coffee = coffee;
+    }
+}
+
+Step 4: Concrete Decorators
+class MilkDecorator extends CoffeeDecorator {
+
+    MilkDecorator(Coffee coffee) {
+        super(coffee);
+    }
+
+    public int cost() {
+        return coffee.cost() + 20;
+    }
+
+    public String description() {
+        return coffee.description() + ", Milk";
+    }
+}
+
+class SugarDecorator extends CoffeeDecorator {
+
+    SugarDecorator(Coffee coffee) {
+        super(coffee);
+    }
+
+    public int cost() {
+        return coffee.cost() + 10;
+    }
+
+    public String description() {
+        return coffee.description() + ", Sugar";
+    }
+}
+
+Step 5: Client Code
+public class Main {
+    public static void main(String[] args) {
+        Coffee coffee =
+            new MilkDecorator(
+                new SugarDecorator(
+                    new SimpleCoffee()
+                )
+            );
+
+        System.out.println(coffee.description());
+        System.out.println("Cost: " + coffee.cost());
+    }
+}
+
+
+✔ Output:
+
+Simple Coffee, Sugar, Milk
+Cost: 80
+
+8️⃣ Decorator vs Inheritance (IMPORTANT)
+Inheritance	Decorator
+Compile-time	Runtime
+Rigid	Flexible
+Class explosion	No explosion
+9️⃣ Real-World Use Case – BookMyShow 🎟️
+
+Base ticket:
+
+Ticket
+
+
+Decorators:
+
+FoodCombo
+
+ReclinerSeat
+
+Insurance
+
+👉 Price calculated dynamically
+👉 No subclass explosion
+
+🔟 Decorator vs Adapter vs Facade (CONFUSION CLEAR)
+Pattern	Purpose
+Adapter	Interface conversion
+Decorator	Add behavior
+Facade	Simplify system
+1️⃣1️⃣ Advantages ✅
+
+✔ Open–Closed Principle
+✔ Runtime flexibility
+✔ Avoids subclass explosion
+✔ Clean design
+
+1️⃣2️⃣ Disadvantages ❌
+
+✖ Many small objects
+✖ Harder debugging
+✖ Order of decoration matters
+
+1️⃣3️⃣ Where Decorator is Used?
+
+✔ Java I/O (BufferedInputStream)
+✔ UI components
+✔ Pricing systems
+✔ Logging frameworks
+
+1️⃣4️⃣ Interview One-Liner (MEMORIZE)
+
+Decorator Pattern dynamically adds behavior to an object without modifying its structure.
+
+✅ Decorator Pattern DONE ✔
