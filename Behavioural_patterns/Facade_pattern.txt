@@ -1,0 +1,216 @@
+Facade Pattern (Structural Design Pattern)
+What problem does it solve?
+
+When a system has many complex subsystems, the client:
+
+Needs to know too many classes
+
+Has tight coupling with internal logic
+
+Becomes hard to use and maintain
+
+👉 Facade Pattern provides a simple, unified interface to these complex subsystems.
+
+Definition
+
+Facade Pattern hides the complexity of multiple subsystems by providing a single high-level interface.
+
+Real-world analogy
+
+🎬 Movie Booking App
+
+You click “Book Ticket”
+
+Internally it:
+
+Checks seats
+
+Processes payment
+
+Sends confirmation
+
+You don’t deal with each step
+
+➡️ Booking button = Facade
+
+Structure
+Client
+  ↓
+Facade
+  ↓
+Subsystem A
+Subsystem B
+Subsystem C
+
+
+Client → talks only to Facade
+
+Facade → coordinates subsystem calls
+
+Subsystems → do real work (unchanged)
+
+Simple Java Example
+Subsystems
+class CPU {
+    void start() {
+        System.out.println("CPU started");
+    }
+}
+
+class Memory {
+    void load() {
+        System.out.println("Memory loaded");
+    }
+}
+
+class HardDrive {
+    void read() {
+        System.out.println("Hard Drive reading data");
+    }
+}
+
+Facade
+class ComputerFacade {
+    private CPU cpu;
+    private Memory memory;
+    private HardDrive hardDrive;
+
+    ComputerFacade() {
+        cpu = new CPU();
+        memory = new Memory();
+        hardDrive = new HardDrive();
+    }
+
+    void startComputer() {
+        cpu.start();
+        memory.load();
+        hardDrive.read();
+        System.out.println("Computer started successfully");
+    }
+}
+
+Client
+public class Main {
+    public static void main(String[] args) {
+        ComputerFacade computer = new ComputerFacade();
+        computer.startComputer();
+    }
+}
+
+Why use Facade Pattern?
+
+✅ Simplifies client code
+✅ Reduces coupling
+✅ Easy to use APIs
+✅ Subsystems can change without affecting client
+
+When to use
+
+Complex systems with many classes
+
+Want a clean entry point
+
+API/library design
+
+Layered architectures
+
+When NOT to use
+
+❌ If system is already simple
+❌ If facade becomes god class (too much logic)
+
+Comparison (Quick Revision)
+Pattern	Purpose
+Adapter	Convert one interface to another
+Decorator	Add behavior dynamically
+Facade	Simplify complex subsystems
+1-Line Revision Note
+
+👉 Facade = One simple interface to hide complex internals
+
+Short Answer
+
+👉 Facade Pattern does NOT require an interface.
+👉 ComputerFacade is a concrete class, not an interface.
+
+Why no interface in Facade?
+
+Facade’s goal is:
+
+To simplify usage
+
+To hide subsystem complexity
+
+The client depends on the facade class itself, not on abstraction.
+
+So this is 100% valid Facade design:
+
+ComputerFacade computer = new ComputerFacade();
+computer.startComputer();
+
+
+No interface is mandatory.
+
+Then when DO we use an interface?
+
+An interface is optional, used only if:
+
+You want multiple facades
+
+You want easy testing / mocking
+
+You want future extensibility
+
+Facade WITHOUT interface (Most common)
+class ComputerFacade {
+    void startComputer() {
+        // subsystem calls
+    }
+}
+
+
+✔ Simple
+✔ Clean
+✔ Interview-acceptable
+
+Facade WITH interface (Optional, advanced design)
+Facade Interface
+interface Computer {
+    void start();
+}
+
+Concrete Facade
+class ComputerFacade implements Computer {
+    private CPU cpu = new CPU();
+    private Memory memory = new Memory();
+
+    public void start() {
+        cpu.start();
+        memory.load();
+        System.out.println("Computer started");
+    }
+}
+
+Client
+Computer computer = new ComputerFacade();
+computer.start();
+
+
+✔ Flexible
+✔ Testable
+✔ Overkill for small systems
+
+Important Interview Line (Remember this)
+
+“Facade pattern focuses on simplification, not abstraction. Interface is optional.”
+
+Common Confusion (You avoided it 👍)
+Pattern	Interface Mandatory?
+Strategy	✅ Yes
+Factory	✅ Yes
+Adapter	✅ Usually
+Decorator	✅ Yes
+Facade	❌ No
+One-line Revision
+
+👉 Facade = concrete class that hides subsystem complexity (interface optional)
