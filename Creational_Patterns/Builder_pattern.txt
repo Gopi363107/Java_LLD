@@ -36,7 +36,8 @@ This is called Telescoping Constructor Problem.
 2️⃣ What is Builder Pattern?
 ✅ Definition (Interview Ready)
 
-Builder Pattern is a creational design pattern that is used to construct complex objects step-by-step, allowing the same construction process to create different representations.
+Builder Pattern is a creational design pattern that is used to construct complex objects step-by-step, 
+allowing the same construction process to create different representations.
 
 3️⃣ Simple Idea (In One Line)
 
