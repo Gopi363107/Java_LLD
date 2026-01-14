@@ -1,0 +1,135 @@
+🧠 Composite Design Pattern — META LEVEL
+1️⃣ What interviewer actually tests
+
+Meta (and similar companies) do NOT test syntax.
+They test whether you can:
+
+Model hierarchical data
+Design scalable APIs
+Write clean recursive logic
+Keep client code simple
+
+2️⃣ Meta-Level Definition (Say this)
+
+“Composite Pattern is used when we need to represent a part–whole hierarchy and allow 
+the client to treat individual objects and compositions uniformly.”
+
+⛳ Keywords they expect
+
+Part–whole hierarchy
+Tree structure
+Uniform interface
+Recursive execution
+
+3️⃣ Core Meta Insight (MOST IMPORTANT)
+
+👉 Client code must NOT know
+
+Whether it is calling a leaf
+Or a composite
+That’s the whole pattern.
+
+Component c;   // Could be leaf or composite
+c.operation(); // Client doesn't care
+
+If client uses instanceof → ❌ bad design
+
+4️⃣ Real Meta-Level Use Cases
+
+Meta-scale systems need this everywhere:
+
+🔹 1. UI Rendering (Meta frontend)
+Button → leaf
+Panel → composite (contains buttons, panels)
+
+render() works same for both
+
+🔹 2. Permission System
+Single permission → leaf
+Role (group of permissions) → composite
+
+hasAccess() called uniformly
+
+🔹 3. Comment System (Facebook-like)
+Comment → leaf
+Thread → composite
+
+display() recursive
+
+5️⃣ Meta-Level Example (Clean & Minimal)
+Component
+interface UIComponent {
+    void render();
+}
+
+Leaf
+class Button implements UIComponent {
+    public void render() {
+        System.out.println("Render Button");
+    }
+}
+
+Composite
+import java.util.*;
+
+class Panel implements UIComponent {
+    List<UIComponent> children = new ArrayList<>();
+
+    void add(UIComponent c) {
+        children.add(c);
+    }
+
+    public void render() {
+        for (UIComponent c : children) {
+            c.render();
+        }
+    }
+}
+
+Client (Meta likes this)
+UIComponent screen = new Panel();
+screen.render();   // No idea what it contains
+
+
+✔ No type checking
+✔ Recursive
+✔ Scalable
+
+6️⃣ Complexity Analysis (Meta cares)
+Time → O(n) (visits every node once)
+Space → O(h) recursion stack (tree height)
+If you say this → huge plus
+
+7️⃣ Design Trade-offs (Must say)
+👍 Pros
+
+Open–Closed Principle
+Easy to add new components
+Clean recursion
+
+⚠ Cons
+
+Hard to restrict child types
+Deep trees → stack overflow risk
+Debugging recursive flows is harder
+
+8️⃣ Meta Follow-up Questions (VERY COMMON)
+Q1️⃣ Why not use a list of objects?
+👉 Because lists don’t represent nested hierarchy
+
+Q2️⃣ Why not inheritance only?
+👉 Inheritance can’t model dynamic tree composition
+
+Q3️⃣ When NOT to use Composite?
+👉 When hierarchy is flat or fixed
+
+9️⃣ How Meta grades your answer
+Level	Evaluation
+❌ Basic	Only definition
+⚠ Good	Definition + example
+✅ Strong	Tree + recursion
+🔥 Meta-ready	Trade-offs + complexity + real system
+🔑 Final Meta-Level Summary (MEMORIZE)
+
+Composite pattern simplifies client code by allowing it to treat individual 
+objects and object groups the same, using a recursive tree-based design.
