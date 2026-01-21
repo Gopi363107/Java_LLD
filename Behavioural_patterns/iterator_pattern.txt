@@ -1,0 +1,206 @@
+🔁 Iterator Design Pattern (Behavioral)
+1️⃣ What Iterator Pattern REALLY Solves (Meta-level)
+
+Iterator pattern separates:
+
+How data is stored
+from
+
+How data is traversed
+
+👉 Client should not know:
+
+Internal data structure
+
+Whether it’s array, list, tree, set, DB cursor
+
+2️⃣ Meta-Level Definition (Say this)
+
+“Iterator Pattern provides a way to access elements of a collection sequentially without exposing its internal representation.”
+
+🎯 Keywords interviewers expect:
+
+Encapsulation
+
+Sequential access
+
+Decoupling traversal from structure
+
+3️⃣ Why Meta / FAANG Uses Iterator
+
+At scale:
+
+Collections change internally
+
+Traversal logic stays stable
+
+Multiple traversal strategies needed
+
+Examples:
+
+Feed pagination
+
+Friend list traversal
+
+Logs processing
+
+Tree traversal (DFS / BFS)
+
+4️⃣ Problem Without Iterator ❌
+class UserList {
+    List<String> users;
+}
+
+
+Client code:
+
+for(int i = 0; i < users.size(); i++) { ... }
+
+
+❌ Breaks encapsulation
+❌ If storage changes → client breaks
+❌ No control over traversal logic
+
+5️⃣ Iterator Pattern Structure
+Iterator       → hasNext(), next()
+ConcreteIterator
+Aggregate      → createIterator()
+ConcreteAggregate
+
+6️⃣ Simple Java Example (FAANG Friendly)
+🔹 Iterator Interface
+interface Iterator<T> {
+    boolean hasNext();
+    T next();
+}
+
+🔹 Aggregate Interface
+interface Collection<T> {
+    Iterator<T> createIterator();
+}
+
+🔹 Concrete Aggregate
+class NameCollection implements Collection<String> {
+    private String[] names = {"Alice", "Bob", "Charlie"};
+
+    public Iterator<String> createIterator() {
+        return new NameIterator();
+    }
+
+    private class NameIterator implements Iterator<String> {
+        int index = 0;
+
+        public boolean hasNext() {
+            return index < names.length;
+        }
+
+        public String next() {
+            return names[index++];
+        }
+    }
+}
+
+🔹 Client Code
+public class Main {
+    public static void main(String[] args) {
+        Collection<String> collection = new NameCollection();
+        Iterator<String> it = collection.createIterator();
+
+        while(it.hasNext()) {
+            System.out.println(it.next());
+        }
+    }
+}
+
+7️⃣ Why This Is GOOD Design (Meta Perspective)
+
+✔ Client doesn’t know array/list
+✔ Traversal logic isolated
+✔ Easy to add new iterators
+
+8️⃣ Multiple Iterators (Meta loves this)
+
+Same data → different traversal
+
+createForwardIterator()
+createReverseIterator()
+
+
+Or:
+
+BFS iterator
+
+DFS iterator
+
+👉 Same structure, different traversal
+
+9️⃣ Real Meta-Level Example (Tree Iterator)
+class TreeIterator implements Iterator<Node> {
+    Stack<Node> stack = new Stack<>();
+
+    TreeIterator(Node root) {
+        stack.push(root);
+    }
+
+    public boolean hasNext() {
+        return !stack.isEmpty();
+    }
+
+    public Node next() {
+        Node curr = stack.pop();
+        for(Node child : curr.children) {
+            stack.push(child);
+        }
+        return curr;
+    }
+}
+
+
+📌 Used in:
+
+DOM traversal
+
+UI trees
+
+File systems
+
+🔟 Java Built-in Iterator (IMPORTANT)
+
+Java already uses this pattern:
+
+Iterator<Integer> it = list.iterator();
+while(it.hasNext()) {
+    System.out.println(it.next());
+}
+
+
+⚠ Never modify collection while iterating → ConcurrentModificationException
+
+1️⃣1️⃣ Time & Space (Meta asks)
+
+Time → O(n)
+
+Space → O(1) (simple iterator)
+
+Tree iterator → O(h) stack
+
+1️⃣2️⃣ Iterator vs Composite (Very common question)
+Iterator	Composite
+Traversal	Structure
+How to visit	How to organize
+Behavioral	Structural
+One element at time	Group elements
+
+👉 Often used together 🔥
+
+1️⃣3️⃣ When NOT to use Iterator
+
+Simple arrays
+
+One-time traversal only
+
+Performance-critical hot loops
+
+🔑 Final Meta-Level Summary (MEMORIZE)
+
+Iterator pattern decouples traversal logic from collection structure, enabling flexible, safe, and scalable iteration.
