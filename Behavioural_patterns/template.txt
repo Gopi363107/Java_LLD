@@ -1,0 +1,164 @@
+1️⃣ What is Template Pattern? (simple words)
+
+Template Pattern = define the steps of an algorithm once, but allow subclasses to change some steps.
+
+👉 The structure stays same
+👉 The details can change
+
+Think like this:
+
+“The recipe is fixed, but ingredients can vary.” ☕
+
+2️⃣ Real-life analogy 🍵
+
+Making tea vs coffee:
+
+Steps are same
+
+Boil water
+
+Add main ingredient
+
+Add extras
+
+Serve
+
+But:
+
+Tea → add tea leaves
+
+Coffee → add coffee powder
+
+So the process is same, only one step differs.
+
+3️⃣ Core idea (very important)
+
+Abstract class defines:
+
+templateMethod() → FINAL (cannot be changed)
+
+Some steps → abstract (subclass must implement)
+
+Some steps → concrete (common logic)
+
+4️⃣ Basic Java Example (must know)
+Step 1: Abstract class (Template)
+abstract class Beverage {
+
+
+    // TEMPLATE METHOD
+    final void prepareBeverage() {
+        boilWater();
+        addMainIngredient();
+        addExtras();
+        serve();
+    }
+
+
+    void boilWater() {
+        System.out.println("Boiling water");
+    }
+
+
+    abstract void addMainIngredient();
+
+
+    abstract void addExtras();
+
+
+    void serve() {
+        System.out.println("Serve the beverage");
+    }
+}
+
+🔑 prepareBeverage() is final → flow cannot change.
+
+Step 2: Concrete classes
+class Tea extends Beverage {
+
+
+    void addMainIngredient() {
+        System.out.println("Adding tea leaves");
+    }
+
+
+    void addExtras() {
+        System.out.println("Adding sugar and lemon");
+    }
+}
+class Coffee extends Beverage {
+
+
+    void addMainIngredient() {
+        System.out.println("Adding coffee powder");
+    }
+
+
+    void addExtras() {
+        System.out.println("Adding sugar and milk");
+    }
+}
+Step 3: Client code
+public class TemplatePatternDemo {
+    public static void main(String[] args) {
+
+
+        Beverage tea = new Tea();
+        tea.prepareBeverage();
+
+
+        System.out.println();
+
+
+        Beverage coffee = new Coffee();
+        coffee.prepareBeverage();
+    }
+}
+5️⃣ Output (important for understanding)
+Boiling water
+Adding tea leaves
+Adding sugar and lemon
+Serve the beverage
+
+
+Boiling water
+Adding coffee powder
+Adding sugar and milk
+Serve the beverage
+6️⃣ Why Template Pattern is useful?
+
+✅ Avoid code duplication
+✅ Enforces algorithm order
+✅ Easy to add new variants
+✅ Follows Open/Closed Principle
+
+7️⃣ Where is it used in real projects?
+
+Spring Framework
+
+JdbcTemplate
+
+RestTemplate
+
+Servlet lifecycle
+
+init(), service(), destroy()
+
+Game engines
+
+initialize() → play() → end()
+
+8️⃣ Interview one-liner (🔥 must remember)
+
+Template Pattern defines the skeleton of an algorithm in a base class and lets subclasses override specific steps without changing the overall structure.
+
+9️⃣ When NOT to use ❌
+
+If algorithm steps change frequently
+
+If subclasses need full control of flow
+
+🔟 Quick comparison (asked often)
+Pattern	Focus
+Strategy	Change entire algorithm
+Template	Change steps inside algorithm

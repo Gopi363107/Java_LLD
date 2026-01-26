@@ -1,0 +1,298 @@
+COMMAND PATTERN
+(Beginner ➜ Intermediate ➜ Advanced ➜ Real-world)
+1️⃣ Problem First (Why Command Pattern?)
+
+Imagine this UI:
+
+Button: ON
+Button: OFF
+Button: UNDO
+
+❌ Naive Code
+class RemoteControl {
+    void pressOn() {
+        light.on();
+    }
+
+    void pressOff() {
+        light.off();
+    }
+}
+
+
+Problems:
+
+Tight coupling to Light
+
+What if tomorrow it's Fan, TV, AC?
+
+Undo is almost impossible
+Violates Open–Closed Principle
+
+👉 We need to decouple the sender from the action
+
+2️⃣ Command Pattern – Core Idea (Simple English)
+
+Command Pattern encapsulates a request as an object,
+allowing you to parameterize clients with different requests,
+queue them, log them, or undo them.
+
+📌 Think:
+“Turn a method call into an object”
+
+3️⃣ Real-Life Analogy 🎮
+Restaurant Example
+
+Customer → Invoker
+Order → Command
+Chef → Receiver
+Waiter → Executes command
+
+Customer doesn’t know how food is cooked.
+They just place an order object.
+
+4️⃣ Basic Structure (Roles)
+
+1️⃣ Command (Interface)
+2️⃣ ConcreteCommand
+3️⃣ Receiver
+4️⃣ Invoker
+5️⃣ Client
+
+5️⃣ Beginner Level – Basic Implementation
+Step 1: Command Interface
+interface Command {
+    void execute();
+}
+
+Step 2: Receiver (Actual Worker)
+class Light {
+    void on() {
+        System.out.println("Light is ON");
+    }
+
+    void off() {
+        System.out.println("Light is OFF");
+    }
+}
+
+Step 3: Concrete Commands
+class LightOnCommand implements Command {
+    private Light light;
+
+    LightOnCommand(Light light) {
+        this.light = light;
+    }
+
+    public void execute() {
+        light.on();
+    }
+}
+
+class LightOffCommand implements Command {
+    private Light light;
+
+    LightOffCommand(Light light) {
+        this.light = light;
+    }
+
+    public void execute() {
+        light.off();
+    }
+}
+
+Step 4: Invoker
+class RemoteControl {
+    private Command command;
+
+    void setCommand(Command command) {
+        this.command = command;
+    }
+
+    void pressButton() {
+        command.execute();
+    }
+}
+
+Step 5: Client
+public class Main {
+    public static void main(String[] args) {
+        Light light = new Light();
+
+        Command lightOn = new LightOnCommand(light);
+        Command lightOff = new LightOffCommand(light);
+
+        RemoteControl remote = new RemoteControl();
+
+        remote.setCommand(lightOn);
+        remote.pressButton();
+
+        remote.setCommand(lightOff);
+        remote.pressButton();
+    }
+}
+
+✔ No tight coupling
+✔ Open for extension
+✔ Clean separation
+
+6️⃣ Intermediate – UNDO Feature (Very Important)
+Modify Command Interface
+interface Command {
+    void execute();
+    void undo();
+}
+
+Update Commands
+class LightOnCommand implements Command {
+    private Light light;
+
+    public void execute() {
+        light.on();
+    }
+
+    public void undo() {
+        light.off();
+    }
+}
+
+Invoker with History
+class RemoteControl {
+    private Stack<Command> history = new Stack<>();
+
+    void press(Command command) {
+        command.execute();
+        history.push(command);
+    }
+
+    void undo() {
+        if (!history.isEmpty()) {
+            history.pop().undo();
+        }
+    }
+}
+
+🧠 This is real interview-level understanding
+
+7️⃣ Command Pattern with Multiple Devices (Macro Commands)
+class MacroCommand implements Command {
+    private List<Command> commands;
+
+    MacroCommand(List<Command> commands) {
+        this.commands = commands;
+    }
+
+    public void execute() {
+        for (Command c : commands) c.execute();
+    }
+
+    public void undo() {
+        for (int i = commands.size() - 1; i >= 0; i--) {
+            commands.get(i).undo();
+        }
+    }
+}
+
+Use case:
+
+“Movie Mode”
+“Shutdown All Systems”
+
+8️⃣ Advanced – Command Queue & Logging
+Command Queue
+Queue<Command> queue = new LinkedList<>();
+
+queue.add(new LightOnCommand(light));
+queue.add(new FanOnCommand(fan));
+
+while (!queue.isEmpty()) {
+    queue.poll().execute();
+}
+
+Use cases:
+
+Job schedulers
+Task processing
+Background workers
+
+Logging Commands (Audit Trail)
+class LoggedCommand implements Command {
+    private Command command;
+
+    public void execute() {
+        log();
+        command.execute();
+    }
+
+    public void undo() {
+        command.undo();
+    }
+}
+
+
+✔ Debugging
+✔ Auditing
+✔ Replay actions
+
+9️⃣ Advanced – Functional Command (Java 8+)
+Command command = () -> light.on();
+command.execute();
+
+Undo?
+
+Command on = () -> light.on();
+Command off = () -> light.off();
+
+Used in:
+
+Event handlers
+Spring Boot lambdas
+
+🔟 Command vs Strategy vs Observer (Interview Gold)
+Pattern	Purpose
+Command	Encapsulate request
+Strategy	Swap algorithms
+Observer	Notify state changes
+
+👉 Command = Action object
+👉 Strategy = Algorithm object
+👉 Observer = Event reaction
+
+1️⃣1️⃣ Real-World Usage (Your Projects 💡)
+🔹 Spring Boot
+
+Controllers → Commands
+Services → Receivers
+
+🔹 InfiLearn
+
+Student action → Command
+Undo test submission
+Retry evaluation
+
+🔹 CraftNest
+
+PlaceOrderCommand
+CancelOrderCommand
+RefundCommand
+
+1️⃣2️⃣ When NOT to Use Command ⚠️
+
+Avoid when:
+
+Only one simple method call
+Overengineering risk
+No need for undo / logging / queueing
+
+1️⃣3️⃣ Interview One-Liners (Memorize)
+
+“Command pattern turns requests into objects.”
+“It decouples invoker and receiver.”
+“Supports undo, logging, and macro operations.”
+“Often used in UI and transaction systems.”
+
+1️⃣4️⃣ How You’ll Implement This Easily (Mental Model)
+
+Whenever you see:
+❓ “If I later need undo / retry / logging”
+👉 Use Command Pattern
