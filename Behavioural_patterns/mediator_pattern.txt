@@ -1,0 +1,147 @@
+What is the Mediator Pattern?
+
+Mediator Pattern is a behavioral design pattern that:
+
+👉 Centralizes communication between multiple objects
+👉 Objects don’t talk to each other directly
+👉 They communicate through a mediator
+
+In short:
+
+“Instead of objects talking to each other → they talk to a mediator.”
+
+Why do we need Mediator Pattern?
+Problem (without Mediator)
+
+Objects depend heavily on each other
+
+Too many connections (tight coupling)
+
+Changing one object affects many others
+
+💥 Result: messy, hard-to-maintain code
+
+Solution (with Mediator)
+
+All communication goes through one mediator
+
+Objects are loosely coupled
+
+Easy to modify behavior in one place
+
+Real-World Example
+✈️ Airport Control Tower
+
+Pilots don’t communicate with each other
+
+They communicate with the control tower (mediator)
+
+Tower coordinates landings & takeoffs
+
+UML Idea (Simple)
+Colleague A  →  
+               Mediator
+Colleague B  →
+
+Java Example (Chat Room)
+Step 1: Mediator Interface
+interface ChatMediator {
+    void sendMessage(String msg, User user);
+}
+
+Step 2: Concrete Mediator
+import java.util.*;
+
+class ChatRoom implements ChatMediator {
+    private List<User> users = new ArrayList<>();
+
+    public void addUser(User user) {
+        users.add(user);
+    }
+
+    @Override
+    public void sendMessage(String msg, User user) {
+        for(User u : users) {
+            if(u != user) {
+                u.receive(msg);
+            }
+        }
+    }
+}
+
+Step 3: Colleague (User)
+abstract class User {
+    protected ChatMediator mediator;
+    protected String name;
+
+    User(ChatMediator mediator, String name) {
+        this.mediator = mediator;
+        this.name = name;
+    }
+
+    abstract void send(String msg);
+    abstract void receive(String msg);
+}
+
+Step 4: Concrete Colleague
+class ChatUser extends User {
+
+    ChatUser(ChatMediator mediator, String name) {
+        super(mediator, name);
+    }
+
+    @Override
+    void send(String msg) {
+        System.out.println(name + " sends: " + msg);
+        mediator.sendMessage(msg, this);
+    }
+
+    @Override
+    void receive(String msg) {
+        System.out.println(name + " receives: " + msg);
+    }
+}
+
+Step 5: Client Code
+public class MediatorPatternDemo {
+    public static void main(String[] args) {
+
+        ChatRoom chatRoom = new ChatRoom();
+
+        User u1 = new ChatUser(chatRoom, "Gopi");
+        User u2 = new ChatUser(chatRoom, "Arun");
+        User u3 = new ChatUser(chatRoom, "Kumar");
+
+        chatRoom.addUser(u1);
+        chatRoom.addUser(u2);
+        chatRoom.addUser(u3);
+
+        u1.send("Hello everyone!");
+    }
+}
+
+Output
+Gopi sends: Hello everyone!
+Arun receives: Hello everyone!
+Kumar receives: Hello everyone!
+
+Key Points for Interviews 🎯
+
+✔ Behavioral Pattern
+✔ Reduces coupling
+✔ Centralized control
+✔ Easier maintenance
+✔ Used in UI frameworks, chat systems, workflow engines
+
+Mediator vs Observer (Important!)
+Mediator	Observer
+Central controller	One-to-many notification
+Objects don’t know each other	Observers know subject
+Complex interaction logic	Simple event notification
+When to Use Mediator Pattern?
+
+✅ Many objects interact in complex ways
+✅ You want to reduce dependencies
+✅ Centralized logic is needed
+
+❌ Avoid if mediator becomes too complex (God class)
